@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior() 
 import os
+from sklearn import preprocessing
 
 # Load training and test data (max nrows = 55M)
 raw_train =  pd.read_csv('input_data/train.csv', nrows = 2_000_000)
@@ -23,6 +24,11 @@ max_dist = 1
 # Define useful functions
 def norm(x):
     return (x -x.mean()) / x.std()
+
+#sklearn normalization test:
+# min_max_scaler = preprocessing.MinMaxScaler()
+# x_train = min_max_scaler.fit_transform(x_train)
+# x_train = pd.DataFrame(x_train)
 
 # Preprocess training data
 train = raw_train
@@ -48,6 +54,10 @@ y_train = train[['fare_amount']]
 # Normalize training data set
 x_train = norm(x_train)
 
+#test linear regression for baseline
+l_reg = LinearRegression().fit(x_train, y_train)
+l_reg.score(x_train, y_train)
+#print(l_reg.score(x_train, y_train))
 
 tf.reset_default_graph() 
 # Network Parameters
