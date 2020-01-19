@@ -126,8 +126,3 @@ with tf.Session() as sess:
     print("Mean square error =", training_cost)
 
 
-# In[ ]:
-
-
-
-
