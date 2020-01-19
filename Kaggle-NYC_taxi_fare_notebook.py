@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[36]:
-
 
 # Establish environment
 import numpy as np
@@ -12,17 +10,9 @@ import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior() 
 import os
 
-
-# In[77]:
-
-
 # Load training and test data (max nrows = 55M)
 raw_train =  pd.read_csv('input_data/train.csv', nrows = 2_000_000)
 raw_test =  pd.read_csv('input_data/test.csv', nrows = 100_000)
-
-
-# In[78]:
-
 
 # Set data pre-processing parameters
 max_fare = 200
@@ -30,16 +20,9 @@ max_seats = 8
 max_dist = 1
 
 
-# In[79]:
-
-
 # Define useful functions
 def norm(x):
     return (x -x.mean()) / x.std()
-
-
-# In[83]:
-
 
 # Preprocess training data
 train = raw_train
@@ -66,10 +49,6 @@ y_train = train[['fare_amount']]
 x_train = norm(x_train)
 
 
-# In[85]:
-
-
-## Multiple layers
 tf.reset_default_graph() 
 # Network Parameters
 learning_rate = 0.001
@@ -124,7 +103,6 @@ pred = Y5
 cost = tf.reduce_mean(tf.square(pred-Y))
 # Gradient descent
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
-
 
 # Start training
 with tf.Session() as sess:
